@@ -474,6 +474,206 @@ svg#mottoSvg {
 
 
   </style>
+  <!-- Additional Styles for new sections -->
+  <style>
+    /* Testimonials Section */
+    #testimonials {
+      position: relative;
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    #testimonials.visible { opacity: 1; transform: translateY(0); }
+    #bgGrid {
+      position: absolute; inset: 0; pointer-events: none;
+      background: url("https://www.transparenttextures.com/patterns/graphy.png");
+      opacity: 0.15;
+      animation: gridShift 40s linear infinite;
+    }
+    @keyframes gridShift { to { background-position: 3000px 2000px; } }
+    #testimonials h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.8rem;
+      color: var(--deep-blue);
+      margin-bottom: 60px;
+      background: linear-gradient(90deg, var(--deep-blue), var(--amber));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .carousel { perspective: 1200px; height: 260px; position: relative; }
+    .slide {
+      position: absolute; top: 0; left: 50%; width: 78%; max-width: 720px;
+      transform: translateX(-50%) rotateY(60deg) translateZ(-200px);
+      opacity: 0;
+      transition: transform 0.9s var(--ease), opacity 0.9s var(--ease);
+      transform-style: preserve-3d;
+    }
+    .slide.active {
+      transform: translateX(-50%) rotateY(0deg) translateZ(0);
+      opacity: 1;
+    }
+    .slide.prev {
+      transform: translateX(-50%) rotateY(-60deg) translateZ(-200px);
+    }
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(32px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 18px 40px var(--shadow), 0 0 18px rgba(255,255,255,.4) inset;
+      height: 100%;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .card p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px; }
+    .card .author { display: flex; align-items: center; gap: 14px; }
+    .card img {
+      width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .card span {
+      font-family: 'Poppins', sans-serif; font-size: 1.05rem; color: var(--amber);
+    }
+    .dots { margin-top: 46px; display: flex; justify-content: center; gap: 16px; }
+    .dot {
+      width: 14px; height: 14px; border-radius: 50%; background: #cdd3db;
+      transition: background 0.4s ease, transform 0.4s ease; cursor: pointer;
+    }
+    .dot.active {
+      background: var(--amber);
+      transform: scale(1.45);
+      box-shadow: 0 0 8px var(--amber);
+    }
+    @media(max-width:640px){
+      .slide { width: 90%; }
+      .card p { font-size: .98rem; }
+    }
+
+    /* Pricing Section */
+    #pricing {
+      padding: 100px 24px; max-width: 1100px; margin: auto; text-align: center;
+    }
+    #pricing h2 {
+      font-family: 'Poppins', sans-serif; font-size: 2.6rem;
+      background: linear-gradient(90deg, var(--blue), var(--amber));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 60px;
+    }
+    .tabs { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 48px; }
+    .tab { position: relative; font-family: 'Poppins', sans-serif; font-size: 1.05rem; padding: 10px 22px; cursor: pointer; transition: color .3s ease; color: #666; }
+    .tab.active { color: var(--blue); }
+    .tab.active::after { content:''; position:absolute; bottom:-8px; left:0; right:0; height:3px; background: var(--amber); border-radius:2px; }
+    .plans { display:grid; gap:40px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); opacity:0; transform:translateY(20px); animation:fadeIn .7s var(--ease) forwards; }
+    @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
+    .card h3 { font-family:'Poppins',sans-serif; font-size:1.35rem; color:var(--blue); margin-bottom:8px; }
+    .badge { display:inline-block; background:var(--amber); color:#fff; font-size:.75rem; padding:3px 10px; border-radius:12px; margin-left:8px; }
+    .price { font-family:'Poppins',sans-serif; font-size:2rem; color:var(--amber); margin:18px 0 20px; }
+    .details { font-size:.96rem; line-height:1.55; margin-bottom:28px; color:#444; }
+    .cta { margin-top:auto; background:var(--blue); color:#fff; padding:12px 28px; border:none; border-radius:28px; font-family:'Poppins',sans-serif; font-size:.95rem; cursor:pointer; transition:background .3s ease,transform .3s ease; }
+    .cta:hover { background:#163d6c; transform:scale(1.05); }
+    .hide { display:none; }
+
+    /* Why Choose Me */
+    #why-me { padding: 80px 20px; max-width:1100px; margin:auto; text-align:center; }
+    .glass-title { display:inline-block; padding:12px 32px; font-family:'Poppins',sans-serif; font-size:2.5rem; color:var(--primary); background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:40px; backdrop-filter:blur(12px); position:relative; overflow:hidden; margin-bottom:48px; }
+    .glass-title::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(120deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1)); transform:skewX(-20deg); }
+    .glass-title.shine-active::after { animation:shine 2s ease-out forwards; }
+    @keyframes shine { to { left:200%; } }
+    .why-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:32px; margin-top:40px; }
+    .card.visible { opacity:1; transform:translateY(0) scale(1); }
+    .card { position:relative; background:var(--glass-bg); backdrop-filter:blur(20px); border:1px solid var(--glass-border); border-radius:20px; overflow:hidden; box-shadow:0 8px 16px var(--shadow); opacity:0; transform:translateY(30px) scale(0.95); transition:opacity 0.6s var(--ease), transform 0.6s var(--ease), box-shadow 0.3s ease; }
+    .card::before { content:''; position:absolute; top:0; left:0; height:6px; width:0; background:var(--accent); transition:width 0.8s var(--ease); }
+    .card.visible::before { width:100%; }
+    .card-content { padding:32px; }
+    .card-icon { width:56px; height:56px; margin-bottom:16px; background:radial-gradient(circle at top left, rgba(255,255,255,0.8), var(--accent)); border-radius:50%; box-shadow:inset 0 2px 6px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.1); }
+    .card h3 { font-family:'Poppins',sans-serif; font-weight:600; font-size:1.5rem; color:var(--primary); margin-bottom:16px; }
+    .card p { font-size:1rem; line-height:1.6; color:#444; text-align:left; }
+    .card:hover { transform:translateY(-10px) rotateX(3deg) rotateY(-3deg) scale(1.04); box-shadow:0 16px 32px var(--shadow), 0 0 12px var(--accent); }
+    @media(max-width:900px){ .why-cards { grid-template-columns:1fr 1fr; } }
+    @media(max-width:600px){ .why-cards { grid-template-columns:1fr; } }
+
+    /* Essay & Appeal Showcase */
+    #samples { max-width:1100px; margin:100px auto; padding:0 24px; text-align:center; opacity:0; transform:translateY(20px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+    #samples.visible { opacity:1; transform:translateY(0); }
+    #samples h2 { font-family:'Poppins',sans-serif; font-size:2.5rem; color:var(--primary); margin-bottom:48px; }
+    #samples .grid { display:grid; gap:40px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+    #samples .card { position:relative; border-radius:24px; background:var(--cardBg); border:1px solid var(--glassBorder); backdrop-filter:blur(22px); overflow:hidden; box-shadow:0 18px 32px var(--shadow); transform:translateY(40px) scale(.94); opacity:0; transition:transform .8s var(--ease), opacity .8s var(--ease), box-shadow .4s ease; will-change:transform; }
+    #samples .card.visible { opacity:1; transform:translateY(0) scale(1); }
+    #samples .card:hover { box-shadow:0 24px 48px var(--shadow),0 0 18px var(--accent); transform:translateY(-6px) rotateX(4deg) rotateY(-4deg) scale(1.03); }
+    .thumb { height:220px; background:#d9d9d9 center/cover no-repeat; position:relative; }
+    .thumb::after { content:''; position:absolute; inset:0; background:linear-gradient(120deg,transparent 0,rgba(255,255,255,.6) 50%,transparent 100%); transform:translateX(-100%); transition:transform .8s ease; }
+    #samples .card:hover .thumb::after { transform:translateX(200%); }
+    .inner { padding:32px; text-align:left; }
+    .inner h3 { font-family:'Poppins',sans-serif; color:var(--primary); font-size:1.4rem; margin-bottom:12px; transition:transform .4s var(--ease); }
+    .inner p { font-size:1rem; line-height:1.55; color:#444; margin-bottom:24px; }
+    #samples .card:hover .inner h3 { transform:translateY(-4px); }
+    .btn { display:inline-block; font-family:'Poppins',sans-serif; background:var(--accent); color:#fff; padding:12px 28px; border:none; border-radius:28px; font-size:.95rem; cursor:pointer; transition:transform .25s ease, box-shadow .25s ease; }
+    .btn:hover { transform:scale(1.06); box-shadow:0 6px 14px var(--shadow); }
+    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.7); display:flex; justify-content:center; align-items:flex-end; opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s ease; z-index:2000; }
+    .overlay.open { opacity:1; visibility:visible; }
+    .sheet { width:100%; max-width:900px; height:85vh; background:#fff; border-radius:24px 24px 0 0; transform:translateY(100%); transition:transform .6s var(--ease); display:flex; flex-direction:column; overflow:hidden; }
+    .overlay.open .sheet { transform:translateY(0); }
+    .close { align-self:flex-end; padding:18px 28px 0 0; font-size:1.8rem; color:#666; cursor:pointer; }
+    .iframeWrap { flex:1; }
+    .iframeWrap iframe { border:none; width:100%; height:100%; }
+    @media(max-width:600px){ .inner{padding:24px;} .inner p{font-size:.95rem;} .btn{width:100%;} }
+
+    /* FAQ Section */
+    #faq { max-width: 900px; margin: 80px auto; padding: 0 24px; }
+    #faq h2 { text-align:center; font-family:'Poppins',sans-serif; font-size:2.3rem; color:var(--primary); margin-bottom:40px; }
+    .faq-item { border-bottom:1px solid #ccc; margin-bottom:12px; }
+    .faq-question { cursor:pointer; font-weight:600; padding:16px; position:relative; font-family:'Poppins',sans-serif; color:var(--primary); }
+    .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s ease; padding:0 16px; }
+    .faq-item.open .faq-answer { max-height:200px; padding-bottom:16px; }
+
+    /* Booking Section */
+    #booking { padding: 80px 24px 140px; }
+    #booking h2 { font-family:Poppins,sans-serif; font-size:2.8rem; color:var(--deep); text-align:center; margin:80px 0 20px; text-shadow:1px 1px 4px rgba(0,0,0,0.1); }
+    .tiles { display:grid; gap:24px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); max-width:900px; margin:0 auto; }
+    .tile { background:var(--glass); backdrop-filter:var(--blur); border-radius:var(--r); padding:16px; box-shadow:0 6px 20px var(--shadow); cursor:pointer; border:2px solid transparent; opacity:0; transform:translateY(20px) scale(0); transition:opacity 0.7s var(--ease), transform 0.7s var(--ease), border 0.3s ease; position:relative; text-align:center; }
+    .tile.visible { opacity:1; transform:translateY(0) scale(1); }
+    .tile:hover { border-color:var(--accent); transform:translateY(0) scale(1.03); }
+    .tile.selected { border-color:var(--accent); }
+    .tile h3 { font-family:Poppins,sans-serif; font-size:1.4rem; color:var(--deep); margin-bottom:12px; }
+    .tile table { width:100%; border-collapse:collapse; margin-top:8px; }
+    .tile th,.tile td { text-align:left; padding:6px 8px; font-size:0.9rem; color:#333; }
+    .tile th { font-family:Poppins,sans-serif; font-size:1rem; color:var(--accent); border-bottom:2px solid var(--accent); padding-bottom:8px; }
+    .tile td { border-bottom:1px solid rgba(0,0,0,0.1); padding-top:8px; padding-bottom:8px; }
+    #backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.5); opacity:0; visibility:hidden; transition:opacity 0.4s var(--ease), visibility 0.4s var(--ease); z-index:190; }
+    #backdrop.show { opacity:1; visibility:visible; }
+    #sheet { position:fixed; left:50%; bottom:-100%; transform:translateX(-50%); width:90%; max-width:480px; background:rgba(255,255,255,0.35); backdrop-filter:blur(25px); border-radius:var(--r); padding:20px 16px; box-shadow:0 -8px 28px var(--shadow); transition:bottom 0.6s var(--ease); z-index:200; }
+    #sheet.show { bottom:40px; }
+    #closeS { position:absolute; top:12px; right:16px; background:none; border:none; font-size:28px; color:#555; cursor:pointer; }
+    #sheet h3 { font-family:Poppins,sans-serif; font-size:1.6rem; color:var(--accent); margin-bottom:8px; text-align:center; }
+    #chosenPlan { font-weight:500; margin-bottom:12px; font-size:1.1rem; text-align:center; color:var(--deep); }
+    .confirm { width:100%; padding:12px; margin-top:8px; background:var(--accent); color:#fff; border:none; border-radius:28px; font-family:Poppins,sans-serif; font-size:1rem; cursor:not-allowed; position:relative; overflow:hidden; opacity:0.6; transition:opacity 0.3s ease; }
+    .confirm.enabled { cursor:pointer; opacity:1; }
+    .confirm svg { position:absolute; left:50%; top:50%; transform:translate(-50%, -50%) scale(0); stroke:#fff; stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    .confirm.morph svg { animation: draw-check 0.5s ease-out forwards; }
+    @keyframes draw-check { to { transform:translate(-50%, -50%) scale(1); stroke-dashoffset:0; } }
+    #done { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity 0.5s var(--ease); z-index:300; }
+    #done.show { opacity:1; visibility:visible; }
+    #done .box { background:#fff; border-radius:18px; padding:32px 40px; text-align:center; box-shadow:0 8px 32px var(--shadow); position:relative; overflow:hidden; max-width:360px; width:90%; }
+    #done .box h4 { font-family:Poppins,sans-serif; font-size:1.8rem; color:var(--deep); margin-bottom:8px; line-height:1.2; }
+    #done .box p { font-size:1rem; color:var(--deep); margin-bottom:12px; line-height:1.4; }
+    #done .rocket { position:absolute; bottom:-60px; left:50%; width:60px; transform:translateX(-50%); animation:launch 2.5s ease-in-out forwards; }
+    @keyframes launch { 0% { bottom:-60px; transform:translateX(-50%) rotate(0deg); opacity:1; } 60% { bottom:75%; transform:translateX(-50%) rotate(-20deg); } 100% { bottom:100%; transform:translateX(-50%) rotate(-20deg); opacity:0; } }
+    .symbols { position:absolute; inset:0; pointer-events:none; }
+    .symbol { position:absolute; top:-20px; font-size:1.4rem; color:var(--accent); animation:fall 3s ease-out forwards; }
+    @keyframes fall { to { transform:translateY(200px); opacity:0; } }
+    footer { background:rgba(255,255,255,0.15); backdrop-filter:blur(30px); padding:60px 24px; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:32px; position:relative; z-index:50; font-size:0.85rem; color:#f0f0f0; box-shadow:0 -6px 20px var(--shadow); border-top:1px solid var(--gold); border-bottom:1px solid var(--gold); background-image:linear-gradient(135deg, transparent 25%, rgba(212,175,55,0.08) 25%, rgba(212,175,55,0.08) 50%, transparent 50%, transparent 75%, rgba(212,175,55,0.08) 75%, rgba(212,175,55,0.08) 100%); background-size:8px 8px; opacity:0; transform:translateY(30px); transition:opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    footer.visible { opacity:1; transform:translateY(0); }
+    .footer-col { position:relative; padding:0 12px; }
+    .footer-col h4 { font-family:Poppins,sans-serif; font-size:1.2rem; margin-bottom:10px; color:var(--gold); padding-bottom:6px; border-bottom:1px solid var(--gold); }
+    .footer-col a { display:block; color:#e0e0e0; margin-bottom:8px; text-decoration:none; transition:color 0.25s ease, transform 0.25s ease; }
+    .footer-col a:hover { color:var(--accent); transform:translateX(2px); }
+    .footer-col p { margin-bottom:8px; color:#ccc; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
@@ -490,6 +690,12 @@ svg#mottoSvg {
     </div>
   </div>
 </section>
+
+<!-- TESTIMONIALS -->
+
+
+
+
 
 <!-- SUPERNOVA -->
 <div class="nova"></div>
@@ -647,6 +853,450 @@ svg#mottoSvg {
 </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div id="bgGrid"></div>
+  <h2>What Parents &amp; Students Say</h2>
+  <div class="carousel">
+    <div class="slide active">
+      <div class="card">
+        <p>“Blake lifted my son’s Physics C grade from a 62 to a 96 in eight weeks. His energy and near-peer style made abstract calculus click.”</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/56?img=5" alt="Parent A">
+          <span>— Parent A, Charleston SC</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="card">
+        <p>“Perfect 800 after his SAT Math bootcamp! He dissected every question type and drilled timing until it felt like a rhythm game.”</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/56?img=11" alt="Student B">
+          <span>— Jason L., SAT 800</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="card">
+        <p>“Our appeal letter used Blake’s persuasion framework—48 hours later the dean called with an admit and a merit award. Game-changer.”</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/56?img=24" alt="Parent C">
+          <span>— Parent C, Appeal Success</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dots">
+    <div class="dot active" data-idx="0"></div>
+    <div class="dot" data-idx="1"></div>
+    <div class="dot" data-idx="2"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <h2>Transparent&nbsp;Packages • Premium&nbsp;Value</h2>
+  <div class="tabs">
+    <div class="tab active" data-cat="math">Math&nbsp;&amp;&nbsp;Stats</div>
+    <div class="tab" data-cat="physics">Physics</div>
+    <div class="tab" data-cat="sat">SAT&nbsp;/&nbsp;ACT</div>
+    <div class="tab" data-cat="essay">Essays</div>
+    <div class="tab" data-cat="appeal">Appeals</div>
+  </div>
+  <div class="plans" id="math">
+    <div class="card">
+      <h3>Individual · 60&nbsp;min</h3>
+      <div class="price">$80<span>/hr</span></div>
+      <p class="details">One-on-one mastery from Algebra I through Calc III &amp; AP Stats.</p>
+      <button class="cta">Book Session</button>
+    </div>
+    <div class="card">
+      <h3>Individual · 90&nbsp;min</h3>
+      <div class="price">$115<span>/session</span></div>
+      <p class="details">Deep-dive calculus proofs or multi-unit exam prep.</p>
+      <button class="cta">Book Session</button>
+    </div>
+    <div class="card">
+      <h3>Group (2-3) · 60&nbsp;min<span class="badge">Value</span></h3>
+      <div class="price">$50<span>/hr&nbsp;each</span></div>
+      <p class="details">Collaborative drills + shared whiteboard. Perfect for classmates.</p>
+      <button class="cta">Reserve Spot</button>
+    </div>
+    <div class="card">
+      <h3>Group (2-3) · 90&nbsp;min</h3>
+      <div class="price">$75<span>/session&nbsp;each</span></div>
+      <p class="details">Extended problem sets &amp; Desmos explorations.</p>
+      <button class="cta">Reserve Spot</button>
+    </div>
+  </div>
+  <div class="plans hide" id="physics">
+    <div class="card">
+      <h3>Individual · 60&nbsp;min</h3>
+      <div class="price">$85<span>/hr</span></div>
+      <p class="details">Calc-based mechanics, E&amp;M or AP Physics 1 support.</p>
+      <button class="cta">Book Session</button>
+    </div>
+    <div class="card">
+      <h3>Individual · 90&nbsp;min</h3>
+      <div class="price">$125<span>/session</span></div>
+      <p class="details">Full lab-style derivations &amp; exam simulations.</p>
+      <button class="cta">Book Session</button>
+    </div>
+    <div class="card">
+      <h3>Group (2-3) · 60&nbsp;min<span class="badge">Popular</span></h3>
+      <div class="price">$60<span>/hr&nbsp;each</span></div>
+      <p class="details">Interactive PhET demos &amp; peer problem-solving.</p>
+      <button class="cta">Reserve Spot</button>
+    </div>
+    <div class="card">
+      <h3>Group (2-3) · 90&nbsp;min</h3>
+      <div class="price">$90<span>/session&nbsp;each</span></div>
+      <p class="details">Rigorous multi-topic deep dive.</p>
+      <button class="cta">Reserve Spot</button>
+    </div>
+  </div>
+  <div class="plans hide" id="sat">
+    <div class="card">
+      <h3>À-la-carte · 90&nbsp;min</h3>
+      <div class="price">$150<span>/solo</span></div>
+      <p class="details">Targeted drill + live error analysis.</p>
+      <button class="cta">Book Now</button>
+    </div>
+    <div class="card">
+      <h3>5-Pack Solo<span class="badge">Best&nbsp;Value</span></h3>
+      <div class="price">$700</div>
+      <p class="details">5× 90-min sessions: timing hacks, Desmos speed, mini-mocks.</p>
+      <button class="cta">Secure Pack</button>
+    </div>
+    <div class="card">
+      <h3>10-Pack Solo</h3>
+      <div class="price">$1,300</div>
+      <p class="details">Full curriculum + 2 proctored mocks + data dashboard.</p>
+      <button class="cta">Secure Pack</button>
+    </div>
+    <div class="card">
+      <h3>Group 5-Pack (2-3)</h3>
+      <div class="price">$1,200<span>/group</span></div>
+      <p class="details">Competitive team drills &amp; leaderboard analytics.</p>
+      <button class="cta">Reserve Group</button>
+    </div>
+    <div class="card">
+      <h3>Group 10-Pack (2-3)</h3>
+      <div class="price">$2,200<span>/group</span></div>
+      <p class="details">Ultimate bootcamp + 4 mocks &amp; bespoke review.</p>
+      <button class="cta">Reserve Group</button>
+    </div>
+  </div>
+  <div class="plans hide" id="essay">
+    <div class="card">
+      <h3>Express<span class="badge">Fast-Track</span></h3>
+      <div class="price">$1,500</div>
+      <p class="details">5&nbsp;live hours: brainstorm → polished 650-word draft.</p>
+      <button class="cta">Schedule Draft</button>
+    </div>
+    <div class="card">
+      <h3>Comprehensive</h3>
+      <div class="price">$2,850</div>
+      <p class="details">10&nbsp;hours: narrative arc, three drafts, Power Edit pass.</p>
+      <button class="cta">Schedule Draft</button>
+    </div>
+  </div>
+  <div class="plans hide" id="appeal">
+    <div class="card">
+      <h3>Single Letter</h3>
+      <div class="price">$800</div>
+      <p class="details">1 strategy call + tailored letter with success templates.</p>
+      <button class="cta">Get Started</button>
+    </div>
+    <div class="card">
+      <h3>Two-Letter Bundle<span class="badge">Save $100</span></h3>
+      <div class="price">$1,500</div>
+      <p class="details">Covers merit-aid appeal &amp; wait-list push.</p>
+      <button class="cta">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE ME -->
+<section id="why-me">
+  <div class="glass-title" id="glassTitle">Why Choose Me</div>
+  <div class="why-cards">
+    <div class="card"><div class="card-content"><div class="card-icon"></div><h3>Gibberish Title One</h3><p>Lorem ipsum dolor sit amet...</p></div></div>
+    <div class="card"><div class="card-content"><div class="card-icon"></div><h3>Gibberish Title Two</h3><p>Vivamus sit amet quam nec...</p></div></div>
+    <div class="card"><div class="card-content"><div class="card-icon"></div><h3>Gibberish Title Three</h3><p>Fusce eget tellus nec tortor...</p></div></div>
+  </div>
+</section>
+
+<!-- ESSAY & APPEAL SHOWCASE -->
+<section id="samples">
+  <h2>Essay&nbsp;&amp;&nbsp;Appeal Showcase</h2>
+  <div class="grid">
+    <div class="card" id="essayCard">
+      <div class="thumb" style="background-image:url('essay-thumb.png')"></div>
+      <div class="inner">
+        <h3>Common App Essay</h3>
+        <p>Peek inside a 650-word essay that earned acceptance and scholarships—plus see the margin notes we’ll rewrite live with you.</p>
+        <button class="btn" data-target="essayModal">View Preview</button>
+      </div>
+    </div>
+    <div class="card" id="appealCard">
+      <div class="thumb" style="background-image:url('appeal-thumb.png')"></div>
+      <div class="inner">
+        <h3>Appeal &amp; Waitlist Letter</h3>
+        <p>See the exact persuasive framework that flipped a wait-list to an admit—annotated with my psychology cues &amp; timing.</p>
+        <button class="btn" data-target="appealModal">View Preview</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="overlay" id="essayModal">
+  <div class="sheet">
+    <div class="close" data-close>&times;</div>
+    <div class="iframeWrap">
+        <iframe src="common-app-sample.pdf"></iframe>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="appealModal">
+  <div class="sheet">
+    <div class="close" data-close>&times;</div>
+    <div class="iframeWrap">
+        <iframe src="appeal-letter-sample.pdf"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <div class="faq-question">What subjects do you tutor?</div>
+    <div class="faq-answer"><p>From Algebra I through Calculus III, AP Physics, SAT/ACT math prep and essay coaching.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question">Where do sessions take place?</div>
+    <div class="faq-answer"><p>In-home visits around Charleston or meet-ups at select Starbucks locations.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question">Do you offer group rates?</div>
+    <div class="faq-answer"><p>Yes—small group options are available for most packages at reduced pricing.</p></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <h2>Select Your Investment</h2>
+  <div class="tiles">
+    <div class="tile" data-plan="Math &amp; Statistics Tutoring">
+      <h3>Math &amp; Statistics Tutoring</h3>
+      <table>
+        <thead>
+          <tr><th>Format</th><th>Size</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Individual</td><td>1 student</td><td>60 min</td></tr>
+          <tr><td>Individual</td><td>1 student</td><td>90 min</td></tr>
+          <tr><td>Small Group</td><td>2–3 students</td><td>60 min</td></tr>
+          <tr><td>Small Group</td><td>2–3 students</td><td>90 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tile" data-plan="Physics Tutoring">
+      <h3>Physics Tutoring</h3>
+      <table>
+        <thead>
+          <tr><th>Format</th><th>Size</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Individual</td><td>1 student</td><td>60 min</td></tr>
+          <tr><td>Individual</td><td>1 student</td><td>90 min</td></tr>
+          <tr><td>Small Group</td><td>2–3 students</td><td>60 min</td></tr>
+          <tr><td>Small Group</td><td>2–3 students</td><td>90 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tile" data-plan="SAT &amp; ACT Math Prep">
+      <h3>SAT &amp; ACT Math Prep</h3>
+      <table>
+        <thead>
+          <tr><th>Package</th><th>Sessions</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>À la carte</td><td>1×90 min</td></tr>
+          <tr><td>5-Session Pack</td><td>5×90 min</td></tr>
+          <tr><td>10-Session Pack</td><td>10×90 min</td></tr>
+          <tr><td>Small Group 5-Pack</td><td>5×90 min</td></tr>
+          <tr><td>Small Group 10-Pack</td><td>10×90 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tile" data-plan="Common App Essay">
+      <h3>Common App Essay</h3>
+      <table>
+        <thead>
+          <tr><th>Package</th><th>Hours</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Express</td><td>5 hours</td></tr>
+          <tr><td>Comprehensive</td><td>10 hours</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tile" data-plan="Appeals &amp; Waitlists">
+      <h3>Appeals &amp; Waitlists</h3>
+      <table>
+        <thead>
+          <tr><th>Package</th><th>Included</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Single Letter</td><td>Strategy + custom draft</td></tr>
+          <tr><td>Two-Letter Bundle</td><td>Up to 2 letters</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tile" data-plan="Get Acquainted Session">
+      <h3>Get Acquainted Session</h3>
+      <table>
+        <thead>
+          <tr><th>Format</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Trial Session</td><td>45 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div id="backdrop"></div>
+<div id="sheet">
+  <button id="closeS">×</button>
+  <h3>Your Investment</h3>
+  <div id="chosenPlan"></div>
+  <div id="pricingDiv">
+    <select id="packageSelect">
+      <option value="" disabled selected>Select Package</option>
+    </select>
+  </div>
+  <div id="subjectMath" class="subjectDiv">
+    <select id="mathSelect" value="">
+      <option value="" disabled selected>Select Math Subject</option>
+      <option>Pre-Algebra</option>
+      <option>Algebra I</option>
+      <option>Algebra II</option>
+      <option>Pre-Calculus</option>
+      <option>Trigonometry</option>
+      <option>Calculus I</option>
+      <option>Calculus II</option>
+      <option>Calculus III</option>
+      <option>AP Calculus AB</option>
+      <option>AP Calculus BC</option>
+      <option>Statistics</option>
+      <option>AP Statistics</option>
+    </select>
+    <span>Select Math Subject</span>
+  </div>
+  <div id="subjectPhys" class="subjectDiv">
+    <select id="physSelect" value="">
+      <option value="" disabled selected>Select Physics Topic</option>
+      <option>General Physics (HS/College)</option>
+      <option>AP Physics 1</option>
+      <option>AP Physics C: Mech &amp; E&amp;M</option>
+    </select>
+    <span>Select Physics Topic</span>
+  </div>
+  <div class="dtDiv">
+    <label>
+      <input type="date" id="datePick" min="2025-06-01" max="2025-08-10" required>
+      <span>Preferred Date</span>
+    </label>
+    <label>
+      <input type="time" id="timePick" min="08:00" max="20:00" step="1800" required>
+      <span>Preferred Time</span>
+    </label>
+  </div>
+  <div id="contactHeader">Preferred Contact Method</div>
+  <div class="contact-chips" id="contactChips">
+    <div class="chip selected" data-type="email">Email</div>
+    <div class="chip" data-type="text">Text</div>
+  </div>
+  <div id="contactFields">
+    <label id="emailLabel">
+      <input type="email" placeholder=" " required><span>Email Address</span>
+    </label>
+    <label id="textLabel" style="display: none;">
+      <input type="tel" placeholder=" "><span>Phone Number</span>
+    </label>
+  </div>
+  <div id="locationHeader">Preferred Location</div>
+  <div class="location-chips" id="locationChips">
+    <div class="chip selected" data-loc="home">Home Visit</div>
+    <div class="chip" data-loc="starbucks">Meet-Up (Starbucks)</div>
+  </div>
+  <div id="locFields">
+    <label id="addrLabel">
+      <input type="text" placeholder=" "><span>Home Address</span>
+    </label>
+    <label id="starLabel" style="display: none;">
+      <select id="starSelect">
+        <option value="" disabled selected>Select Starbucks</option>
+        <option>Starbucks – 1 King St, Charleston, SC</option>
+        <option>Starbucks – 42 Laurens St, Charleston, SC</option>
+        <option>Starbucks – 423 Seven Farms Dr, Daniel Island, SC</option>
+        <option>Starbucks – 123 Coleman Blvd, Mt Pleasant, SC</option>
+      </select>
+      <span>Starbucks Location</span>
+    </label>
+  </div>
+  <button class="confirm" id="submitBtn" disabled>
+    Confirm Reservation
+    <svg width="48" height="48" viewBox="0 0 48 48">
+      <path d="M14 24l8 8 12-16" stroke-dasharray="36" stroke-dashoffset="36"/>
+    </svg>
+  </button>
+</div>
+<div id="done">
+  <div class="box">
+    <img src="https://i.imgur.com/6Xg2fNs.png" class="rocket" alt="rocket" />
+    <h4>Thank You for Investing in Yourself!</h4>
+    <p>We’re honored to guide you—your session is on its way.<br/>You’ll hear from us very soon!</p>
+    <div class="symbols">
+      <span class="symbol" style="left:10%; animation-delay:0s;">⭐</span>
+      <span class="symbol" style="left:30%; animation-delay:0.3s;">✨</span>
+      <span class="symbol" style="left:50%; animation-delay:0.6s;">🌟</span>
+      <span class="symbol" style="left:70%; animation-delay:0.9s;">💫</span>
+      <span class="symbol" style="left:90%; animation-delay:1.2s;">🎉</span>
+    </div>
+  </div>
+</div>
+
+<footer id="mainFooter">
+  <div class="footer-col">
+    <h4>Elite Tutoring</h4>
+    <p>Precision-driven sessions for the ambitious.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="#">Math &amp; Statistics Tutoring</a>
+    <a href="#">Physics Tutoring</a>
+    <a href="#">SAT &amp; ACT Math Prep</a>
+    <a href="#">Common App Essay</a>
+    <a href="#">Appeals &amp; Waitlists</a>
+    <a href="#">Get Acquainted Session</a>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <a href="#booking">Book Now</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <p><a href="mailto:tutor@blakebird.com">tutor@blakebird.com</a></p>
+    <p><a href="tel:+18438138108">(843) 813-8108</a></p>
+  </div>
+</footer>
+<canvas id="confetti-canvas"></canvas>
 
   <!-- SCRIPTS -->
   <script>
@@ -835,6 +1485,81 @@ document.querySelectorAll('section').forEach(sec => {
 
     
   </script>
+<script>
+/* Testimonials */
+const tSec=document.getElementById('testimonials');
+if(tSec){
+  const slides=tSec.querySelectorAll('.slide');
+  const dots=tSec.querySelectorAll('.dot');
+  let idx=0,timer;
+  const show=n=>{
+    slides[idx].classList.remove('active');
+    slides[idx].classList.add('prev');
+    dots[idx].classList.remove('active');
+    idx=n;
+    slides[idx].classList.add('active');
+    slides[idx].classList.remove('prev');
+    dots[idx].classList.add('active');
+  };
+  const next=()=>show((idx+1)%slides.length);
+  function run(){timer=setInterval(next,6000);}
+  new IntersectionObserver(([e],o)=>{if(e.isIntersecting){tSec.classList.add('visible');o.disconnect();run();}},{threshold:.3}).observe(tSec);
+  dots.forEach(d=>d.onclick=()=>{clearInterval(timer);show(+d.dataset.idx);run();});
+  slides.forEach(s=>{s.addEventListener('mousemove',e=>{const r=s.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;s.style.transformOrigin='center';s.style.transform=`translateX(-50%) rotateY(${x*8}deg) rotateX(${ -y*6 }deg)`;});s.addEventListener('mouseleave',()=>s.style.transform='translateX(-50%) rotateY(0deg) rotateX(0deg)');});
+}
+
+/* Pricing Tabs */
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.plans').forEach(p=>p.classList.add('hide'));
+    document.getElementById(tab.dataset.cat).classList.remove('hide');
+  });
+});
+
+/* Why Choose Me */
+document.addEventListener('DOMContentLoaded',()=>{
+  const cards=document.querySelectorAll('.why-cards .card');
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((entry,i)=>{if(entry.isIntersecting){setTimeout(()=>entry.target.classList.add('visible'),i*150);}});},{threshold:0.25});
+  cards.forEach(c=>obs.observe(c));
+  const title=document.getElementById('glassTitle');
+  if(title){new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){const trig=()=>{title.classList.remove('shine-active');void title.offsetWidth;title.classList.add('shine-active');};trig();setTimeout(trig,2000);setTimeout(trig,3500);setTimeout(()=>setInterval(trig,20000),12000);o.disconnect();}},{threshold:0.5}).observe(title);}
+});
+
+/* Essay & Appeal */
+const sample=document.getElementById('samples');
+if(sample){
+  const cards=sample.querySelectorAll('.card');
+  new IntersectionObserver(([e],o)=>{if(e.isIntersecting){sample.classList.add('visible');cards.forEach((c,i)=>setTimeout(()=>c.classList.add('visible'),i*180));o.disconnect();}},{threshold:.3}).observe(sample);
+  document.querySelectorAll('.btn').forEach(btn=>btn.onclick=()=>document.getElementById(btn.dataset.target).classList.add('open'));
+  document.querySelectorAll('[data-close]').forEach(x=>x.onclick=()=>x.closest('.overlay').classList.remove('open'));
+}
+
+/* Booking */
+const pricingData={"Math & Statistics Tutoring":[{label:"Individual · 60 min",info:""},{label:"Individual · 90 min",info:""},{label:"Small Group · 60 min",info:""},{label:"Small Group · 90 min",info:""}],"Physics Tutoring":[{label:"Individual · 60 min",info:""},{label:"Individual · 90 min",info:""},{label:"Small Group · 60 min",info:""},{label:"Small Group · 90 min",info:""}],"SAT & ACT Math Prep":[{label:"À la carte · 1×90 min",info:""},{label:"5-Session Pack · 5×90 min",info:""},{label:"10-Session Pack · 10×90 min",info:""},{label:"Small Group 5-Pack · 5×90 min",info:""},{label:"Small Group 10-Pack · 10×90 min",info:""}],"Common App Essay":[{label:"Express · 5 hours",info:""},{label:"Comprehensive · 10 hours",info:""}],"Appeals & Waitlists":[{label:"Single Letter",info:""},{label:"Two-Letter Bundle",info:""}],"Get Acquainted Session":[{label:"Trial Session · 45 min",info:""}]};
+function bookingSetup(){
+const backdrop=document.getElementById('backdrop');
+const sheet=document.getElementById('sheet');
+const chosen=document.getElementById('chosenPlan');
+const packageSelect=document.getElementById('packageSelect');
+const subjectMath=document.getElementById('subjectMath');
+const subjectPhys=document.getElementById('subjectPhys');
+const contactChips=document.querySelectorAll('#contactChips .chip');
+const locationChips=document.querySelectorAll('#locationChips .chip');
+const datePick=document.getElementById('datePick');
+const timePick=document.getElementById('timePick');
+const emailInput=document.querySelector('#emailLabel input');
+const textInput=document.querySelector('#textLabel input');
+const addrInput=document.querySelector('#addrLabel input');
+const starSelect=document.getElementById('starSelect');
+const submitBtn=document.getElementById('submitBtn');
+if(!backdrop)return;
+function openSheet(plan){document.querySelectorAll('.tile').forEach(t=>t.classList.remove('selected'));contactChips.forEach(c=>c.classList.remove('selected'));contactChips[0].classList.add('selected');locationChips.forEach(c=>c.classList.remove('selected'));locationChips[0].classList.add('selected');document.getElementById('emailLabel').style.display='block';document.getElementById('textLabel').style.display='none';emailInput.required=true;textInput.required=false;document.getElementById('addrLabel').style.display='block';document.getElementById('starLabel').style.display='none';packageSelect.value='';datePick.value='';timePick.value='';emailInput.value='';textInput.value='';addrInput.value='';starSelect.value='';document.getElementById('mathSelect').value='';document.getElementById('physSelect').value='';subjectMath.style.display=plan.includes('Math & Statistics')?'block':'none';subjectPhys.style.display=plan.includes('Physics')?'block':'none';const phoneChip=document.querySelector('#locationChips .chip[data-loc="phone"]');if(plan.includes('Appeals & Waitlists')){const homeChip=document.querySelector('#locationChips .chip[data-loc="home"]');homeChip.textContent='Phone Call';homeChip.dataset.loc='phone';}else if(phoneChip){phoneChip.textContent='Home Visit';phoneChip.dataset.loc='home';}chosen.textContent=plan;packageSelect.innerHTML='<option value="" disabled selected>Select Package</option>';pricingData[plan].forEach((pkg,i)=>{const opt=document.createElement('option');opt.value=i;opt.textContent=pkg.label;packageSelect.appendChild(opt);});backdrop.classList.add('show');sheet.classList.add('show');check();}
+document.querySelectorAll('.tile').forEach(tile=>{tile.addEventListener('click',()=>{tile.classList.add('selected');openSheet(tile.dataset.plan);});});document.getElementById('closeS').addEventListener('click',()=>{sheet.classList.remove('show');backdrop.classList.remove('show');});backdrop.addEventListener('click',e=>{if(e.target===backdrop){sheet.classList.remove('show');backdrop.classList.remove('show');}});contactChips.forEach(chip=>{chip.addEventListener('click',()=>{contactChips.forEach(c=>c.classList.remove('selected'));chip.classList.add('selected');const type=chip.dataset.type;if(type==='email'){document.getElementById('emailLabel').style.display='block';document.getElementById('textLabel').style.display='none';emailInput.required=true;textInput.required=false;}else{document.getElementById('emailLabel').style.display='none';document.getElementById('textLabel').style.display='block';emailInput.required=false;textInput.required=true;}check();});});locationChips.forEach(chip=>{chip.addEventListener('click',()=>{locationChips.forEach(c=>c.classList.remove('selected'));chip.classList.add('selected');const loc=chip.dataset.loc;if(loc==='home'){document.getElementById('addrLabel').style.display='block';document.getElementById('starLabel').style.display='none';}else{document.getElementById('addrLabel').style.display='none';document.getElementById('starLabel').style.display='block';}check();});});function check(){const plan=chosen.textContent;const pkgChosen=packageSelect.value!=='';const dateChosen=datePick.value!=='';const timeChosen=timePick.value!=='';const contactType=document.querySelector('#contactChips .chip.selected').dataset.type;const contactFilled=(contactType==='email')?emailInput.value.trim()!=='' : textInput.value.trim()!=='';const locType=document.querySelector('#locationChips .chip.selected').dataset.loc;const locFilled=(locType==='home')?addrInput.value.trim()!=='' : starSelect.value!=='';const subjOK=(!plan.includes('Math & Statistics')||document.getElementById('mathSelect').value!=='') &&(!plan.includes('Physics')||document.getElementById('physSelect').value!=='');if(pkgChosen&&dateChosen&&timeChosen&&contactFilled&&locFilled&&subjOK){submitBtn.disabled=false;submitBtn.classList.add('enabled');}else{submitBtn.disabled=true;submitBtn.classList.remove('enabled');}}
+[packageSelect,datePick,timePick,document.getElementById('mathSelect'),document.getElementById('physSelect')].forEach(el=>{if(el)el.addEventListener('change',check);});emailInput.addEventListener('input',check);textInput.addEventListener('input',check);addrInput.addEventListener('input',check);starSelect.addEventListener('change',check);const confettiCanvas=document.getElementById('confetti-canvas');if(confettiCanvas){confettiCanvas.width=window.innerWidth;confettiCanvas.height=window.innerHeight;const confettiInst=confetti.create(confettiCanvas,{resize:true});submitBtn.addEventListener('click',()=>{const data={plan:chosen.textContent,package:packageSelect.options[packageSelect.selectedIndex].textContent,subject:subjectMath.style.display==='block'?document.getElementById('mathSelect').value:subjectPhys.style.display==='block'?document.getElementById('physSelect').value:'',date:datePick.value,time:timePick.value,contactMethod:document.querySelector('#contactChips .chip.selected').dataset.type,contactValue:document.querySelector('#contactChips .chip.selected').dataset.type==='email'?emailInput.value:textInput.value,locationType:document.querySelector('#locationChips .chip.selected').dataset.loc,address:document.getElementById('addrLabel').style.display==='block'?addrInput.value:'',starbucks:document.getElementById('starLabel').style.display==='block'?starSelect.value:''};console.log('Booking Data:',data);backdrop.classList.remove('show');sheet.classList.remove('show');submitBtn.disabled=true;submitBtn.classList.remove('enabled');const doneOverlay=document.getElementById('done');doneOverlay.classList.add('show');confettiInst({particleCount:150,spread:100,origin:{y:0.6}});setTimeout(()=>{doneOverlay.classList.remove('show');},4000);});}}
+bookingSetup();
+</script>
 </body>
 </html>
 
